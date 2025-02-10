@@ -4,7 +4,6 @@ import com.example.quizapp.Constants.Constants
 import com.example.quizapp.Domain.RepositoryInterface.Repository
 import com.example.quizapp.data.KtorClient.KtorClient
 import com.example.quizapp.data.Models.QnaResponse
-import com.example.quizapp.data.Models.QnaResponseItem
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -19,11 +18,11 @@ sealed class ApiResult<out T> {
 }
 
 class RepositoryImpl : Repository {
-    override suspend fun getAllQuestions(): Flow<ApiResult<List<QnaResponseItem>>> = flow {
+    override suspend fun getAllQuestions(): Flow<ApiResult<List<QnaResponse>>> = flow {
         emit(ApiResult.Loading) // Show loading state
 
         try {
-            val response: List<QnaResponseItem> = KtorClient.client.get(Constants.BASEURL) {
+            val response:List< QnaResponse> = KtorClient.client.get(Constants.BASEURL) {
                 parameter("apiKey", Constants.APIKEY)
                 parameter("category", Constants.CATEGORY)
                 parameter("limit",10)
