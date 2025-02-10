@@ -65,7 +65,7 @@ class RepositoryImpl : Repository {
        try {
            val response:List< QnaResponse> = KtorClient.client.get(Constants.BASEURL) {
                parameter("apiKey", Constants.APIKEY)
-               parameter("category", Constants.REACT)
+               parameter("category", Constants.BASH)
                parameter("limit",10)
            }.body()
            emit(ApiResult.Success(response)) // Success case
@@ -75,7 +75,34 @@ class RepositoryImpl : Repository {
     }
 
     override suspend fun getLinuxQuestions(): Flow<ApiResult<List<QnaResponse>>> = flow{
+        emit(ApiResult.Loading)
 
+        try {
+            val response:List< QnaResponse> = KtorClient.client.get(Constants.BASEURL) {
+                parameter("apiKey", Constants.APIKEY)
+                parameter("category", Constants.LINUX)
+                parameter("limit",10)
+            }.body()
+            emit(ApiResult.Success(response)) // Success case
+        } catch (e: Exception) {
+            emit(ApiResult.Error("Error: ${e.message}")) // Error case
+        }
+
+
+    }
+
+    override suspend fun getDockerQuestions(): Flow<ApiResult<List<QnaResponse>>> =flow {
+        emit(ApiResult.Loading)
+        try {
+            val response:List< QnaResponse> = KtorClient.client.get(Constants.BASEURL) {
+                parameter("apiKey", Constants.APIKEY)
+                parameter("category", Constants.DOCKER)
+                parameter("limit",10)
+            }.body()
+            emit(ApiResult.Success(response)) // Success case
+        } catch (e: Exception) {
+            emit(ApiResult.Error("Error: ${e.message}")) // Error case
+        }
 
     }
 }

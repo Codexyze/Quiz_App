@@ -11,6 +11,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.quizapp.presentation.Screens.GetApacheKafkaQuestionScreen
 import com.example.quizapp.presentation.Screens.GetBashQuestionScreen
+import com.example.quizapp.presentation.Screens.GetDockerQuestionScreen
+import com.example.quizapp.presentation.Screens.GetLinuxQuestionScreen
 import com.example.quizapp.presentation.Screens.GetReactQuestionScreen
 import com.example.quizapp.ui.theme.QuizAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,8 +27,7 @@ class MainActivity : ComponentActivity() {
             QuizAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                    Box(modifier = Modifier.padding(innerPadding)){
-                       //GetApacheKafkaQuestionScreen()
-                       GetBashQuestionScreen()
+                     GetDockerQuestionScreen()
 
                    }
                 }
