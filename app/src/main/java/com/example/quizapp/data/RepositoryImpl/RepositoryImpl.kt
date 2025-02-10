@@ -59,4 +59,23 @@ class RepositoryImpl : Repository {
             emit(ApiResult.Error("Error: ${e.message}")) // Error case
         }
     }
+
+    override suspend fun getBashQuestions(): Flow<ApiResult<List<QnaResponse>>> =flow {
+        emit(ApiResult.Loading)
+       try {
+           val response:List< QnaResponse> = KtorClient.client.get(Constants.BASEURL) {
+               parameter("apiKey", Constants.APIKEY)
+               parameter("category", Constants.REACT)
+               parameter("limit",10)
+           }.body()
+           emit(ApiResult.Success(response)) // Success case
+       } catch (e: Exception) {
+           emit(ApiResult.Error("Error: ${e.message}")) // Error case
+       }
+    }
+
+    override suspend fun getLinuxQuestions(): Flow<ApiResult<List<QnaResponse>>> = flow{
+
+
+    }
 }

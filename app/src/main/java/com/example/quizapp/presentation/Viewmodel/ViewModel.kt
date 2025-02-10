@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.quizapp.StateHandling.ApacheKafkaResponseState
 import com.example.quizapp.StateHandling.ApiResponseState
 import com.example.quizapp.StateHandling.ApiResult
+import com.example.quizapp.StateHandling.BashResponseState
 import com.example.quizapp.StateHandling.ReactResponseState
 import com.example.quizapp.data.Models.QnaResponse
 import com.example.quizapp.data.RepositoryImpl.RepositoryImpl
@@ -23,6 +24,8 @@ class ViewModel @Inject constructor(private val repository:RepositoryImpl):ViewM
     val getReactQuestionstate =_getReactQuestionstate.asStateFlow()
     private val _getApacheKafkaQuestionstate= MutableStateFlow(ApacheKafkaResponseState())
     val getApacheKafkaQuestionstate =_getApacheKafkaQuestionstate.asStateFlow()
+    private val  _bashResponseState = MutableStateFlow(BashResponseState())
+    val bashResponseState=_bashResponseState.asStateFlow()
 
     fun getPostgreseQuestions(){
         viewModelScope.launch {
@@ -77,6 +80,27 @@ class ViewModel @Inject constructor(private val repository:RepositoryImpl):ViewM
                     }
                 }
 
+            }
+        }
+    }
+    fun getBashQuestions() {
+        viewModelScope.launch {
+            repository.getBashQuestions().collectLatest { ApiResult ->
+                when (ApiResult) {
+                    is ApiResult.Loading -> {
+                        _bashResponseState.value = BashResponseState(isLoading = true)
+                    }
+
+                    is ApiResult.Success -> {
+                        _bashResponseState.value =
+                            BashResponseState(isLoading = false, data = ApiResult.data)
+                    }
+
+                    is ApiResult.Error -> {
+                        _bashResponseState.value =
+                            BashResponseState(isLoading = false, error = ApiResult.message)
+                    }
+                }
             }
         }
     }

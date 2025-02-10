@@ -8,4 +8,7 @@ interface Repository {
     suspend fun getPostgreseQuestions(): Flow<ApiResult<List<QnaResponse>>>
     suspend fun getReactQuestions(): Flow<ApiResult<List<QnaResponse>>>
     suspend fun getApacheKafkaQuestions(): Flow<ApiResult<List<QnaResponse>>>
+    suspend fun getBashQuestions(): Flow<ApiResult<List<QnaResponse>>>
+    suspend fun getLinuxQuestions(): Flow<ApiResult<List<QnaResponse>>>
+
 }
