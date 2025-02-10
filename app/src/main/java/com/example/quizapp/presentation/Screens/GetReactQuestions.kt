@@ -1,6 +1,5 @@
 package com.example.quizapp.presentation.Screens
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,12 +33,12 @@ import com.example.quizapp.presentation.Viewmodel.ViewModel
 
 
 @Composable
-fun GetPostgreseQuestionScreen(viewModel: ViewModel = hiltViewModel()) {
-    val state = viewModel.getAllQuestionstate.collectAsState()
+fun GetReactQuestionScreen(viewModel: ViewModel = hiltViewModel()) {
+    val state = viewModel.getReactQuestionstate.collectAsState()
     var score by remember { mutableStateOf(0) } // Score counter
 
     LaunchedEffect(Unit) {
-        viewModel.getPostgreseQuestions()
+        viewModel.getReactQuestions()
     }
 
     Column(
@@ -148,5 +147,3 @@ fun GetPostgreseQuestionScreen(viewModel: ViewModel = hiltViewModel()) {
         }
     }
 }
-
-

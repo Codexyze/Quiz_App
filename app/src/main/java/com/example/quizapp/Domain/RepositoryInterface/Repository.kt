@@ -1,9 +1,11 @@
 package com.example.quizapp.Domain.RepositoryInterface
 
+import com.example.quizapp.StateHandling.ApiResult
 import com.example.quizapp.data.Models.QnaResponse
-import com.example.quizapp.data.RepositoryImpl.ApiResult
 import kotlinx.coroutines.flow.Flow
 
 interface Repository {
-    suspend fun getAllQuestions(): Flow<ApiResult<List<QnaResponse>>>
+    suspend fun getPostgreseQuestions(): Flow<ApiResult<List<QnaResponse>>>
+    suspend fun getReactQuestions(): Flow<ApiResult<List<QnaResponse>>>
+    suspend fun getApacheKafkaQuestions(): Flow<ApiResult<List<QnaResponse>>>
 }
