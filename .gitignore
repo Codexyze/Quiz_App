@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+Constants/Constants.kt
+Constants
+Constants.kt
