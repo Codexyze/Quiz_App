@@ -16,3 +16,7 @@ data class ReactResponseState(
     val isLoading: Boolean = false,
     val data: List<QnaResponse> = emptyList(),
     val error: String = "")
+data class ApacheKafkaResponseState(
+    val isLoading: Boolean = false,
+    val data: List<QnaResponse> = emptyList(),
+    val error: String = "")
