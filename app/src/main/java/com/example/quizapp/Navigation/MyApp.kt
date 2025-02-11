@@ -18,7 +18,7 @@ fun MyApp(){
 
     NavHost(navController = navController, startDestination = HOMESCREEN) {
         composable<HOMESCREEN> {
-           HomeScreen()
+           HomeScreen(navController = navController)
         }
         composable<APACHE_KAFKA> {
            GetApacheKafkaQuestionScreen()
