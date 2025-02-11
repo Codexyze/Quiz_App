@@ -22,3 +22,6 @@ object POSTGRESQL
 
 @Serializable
 object HOMESCREEN
+
+@Serializable
+object ALLQUESTIONSCREEN

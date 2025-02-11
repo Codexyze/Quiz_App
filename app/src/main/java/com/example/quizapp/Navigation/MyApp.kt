@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.quizapp.presentation.Screens.GetAllQuestionScreen
 import com.example.quizapp.presentation.Screens.GetApacheKafkaQuestionScreen
 import com.example.quizapp.presentation.Screens.GetBashQuestionScreen
 import com.example.quizapp.presentation.Screens.GetDockerQuestionScreen
@@ -37,6 +38,9 @@ fun MyApp(){
         }
         composable<POSTGRESQL> {
             GetPostgreseQuestionScreen()
+        }
+        composable<ALLQUESTIONSCREEN> {
+            GetAllQuestionScreen()
         }
 
     }

@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.quizapp.Navigation.ALLQUESTIONSCREEN
 import com.example.quizapp.Navigation.APACHE_KAFKA
 import com.example.quizapp.Navigation.BASH
 import com.example.quizapp.Navigation.DOCKER
@@ -98,9 +99,19 @@ fun HomeScreen(navController: NavController) {
        ) {
            Text(text = "Postgres")
        }
-
-
+       Spacer(modifier = Modifier.height(16.dp))
+       Button(
+           onClick = {
+               navController.navigate(ALLQUESTIONSCREEN)
+           },
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
+           colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFCF62E2)),
+           shape = RectangleShape
+       ) {
+           Text(text = "Random Quiz")
+       }
 
    }
+
 
 }

@@ -7,6 +7,7 @@ import com.example.quizapp.StateHandling.ApiResponseState
 import com.example.quizapp.StateHandling.ApiResult
 import com.example.quizapp.StateHandling.BashResponseState
 import com.example.quizapp.StateHandling.DockerResponseState
+import com.example.quizapp.StateHandling.GetAllQuestionResponseState
 import com.example.quizapp.StateHandling.LinuxResponseState
 import com.example.quizapp.StateHandling.ReactResponseState
 import com.example.quizapp.data.Models.QnaResponse
@@ -32,6 +33,8 @@ class ViewModel @Inject constructor(private val repository:RepositoryImpl):ViewM
     val getLinuxResponseState=_getLinuxResponseState.asStateFlow()
     private val _getDockerQuestionState = MutableStateFlow(DockerResponseState())
     val getDockerQuestionState=_getDockerQuestionState.asStateFlow()
+    private val _getAllQuestionState = MutableStateFlow(GetAllQuestionResponseState())
+    val getAllQuestionState=_getAllQuestionState.asStateFlow()
 
     fun getPostgreseQuestions(){
         viewModelScope.launch {
@@ -153,6 +156,26 @@ class ViewModel @Inject constructor(private val repository:RepositoryImpl):ViewM
         }
     }
 
+    fun getAllQuestions() {
+    viewModelScope.launch {
+        repository.getAllQuestions().collectLatest { ApiResult ->
+            when (ApiResult) {
+                is ApiResult.Loading -> {
+                    _getAllQuestionState.value = GetAllQuestionResponseState(isLoading = true)
+                }
 
+                is ApiResult.Success -> {
+                    _getAllQuestionState.value =
+                        GetAllQuestionResponseState(isLoading = false, data = ApiResult.data)
+                }
+
+                is ApiResult.Error -> {
+                    _getAllQuestionState.value =
+                        GetAllQuestionResponseState(isLoading = false, error = ApiResult.message)
+                }
+             }
+         }
+      }
+   }
 }
 
