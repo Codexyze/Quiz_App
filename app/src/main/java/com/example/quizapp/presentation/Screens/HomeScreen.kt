@@ -21,13 +21,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.quizapp.Navigation.APACHE_KAFKA
+import com.example.quizapp.Navigation.BASH
+import com.example.quizapp.Navigation.DOCKER
+import com.example.quizapp.Navigation.LINUX
+import com.example.quizapp.Navigation.POSTGRESQL
+import com.example.quizapp.Navigation.REACT
 
 @Composable
 fun HomeScreen(navController: NavController) {
    Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
        Spacer(modifier = Modifier.height(32.dp))
        Button(
-           onClick = { },
+           onClick = {
+               navController.navigate(APACHE_KAFKA)
+           },
            modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)), // Green background
            shape = RectangleShape // Removes rounded corners
@@ -37,7 +45,9 @@ fun HomeScreen(navController: NavController) {
        Spacer(modifier = Modifier.height(16.dp))
 
        Button(
-           onClick = { },
+           onClick = {
+               navController.navigate(BASH)
+           },
            modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1976D2)), // Custom color
            shape = RectangleShape
@@ -46,7 +56,9 @@ fun HomeScreen(navController: NavController) {
        }
        Spacer(modifier = Modifier.height(16.dp))
        Button(
-           onClick = { },
+           onClick = {
+               navController.navigate(DOCKER)
+           },
            modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
            shape = RectangleShape
@@ -55,7 +67,9 @@ fun HomeScreen(navController: NavController) {
        }
        Spacer(modifier = Modifier.height(16.dp))
        Button(
-           onClick = { },
+           onClick = {
+               navController.navigate(REACT)
+           },
            modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
            colors = ButtonDefaults.buttonColors(containerColor = Color.Cyan),
            shape = RectangleShape
@@ -64,7 +78,9 @@ fun HomeScreen(navController: NavController) {
        }
        Spacer(modifier = Modifier.height(16.dp))
        Button(
-           onClick = { },
+           onClick = {
+               navController.navigate(LINUX)
+           },
            modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF0DE43)),
            shape = RectangleShape
@@ -73,7 +89,9 @@ fun HomeScreen(navController: NavController) {
        }
        Spacer(modifier = Modifier.height(16.dp))
        Button(
-           onClick = { },
+           onClick = {
+               navController.navigate(POSTGRESQL)
+           },
            modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF74C40)),
            shape = RectangleShape
