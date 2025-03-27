@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.quizapp.Navigation.ALLQUESTIONSCREEN
@@ -37,7 +38,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(APACHE_KAFKA)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Apache Kafka"),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)), // Green background
            shape = RectangleShape // Removes rounded corners
        ) {
@@ -49,7 +50,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(BASH)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Bash"),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1976D2)), // Custom color
            shape = RectangleShape
        ) {
@@ -71,7 +72,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(REACT)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("React"),
            colors = ButtonDefaults.buttonColors(containerColor = Color.Cyan),
            shape = RectangleShape
        ) {

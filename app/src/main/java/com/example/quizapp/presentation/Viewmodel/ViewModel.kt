@@ -10,7 +10,6 @@ import com.example.quizapp.StateHandling.DockerResponseState
 import com.example.quizapp.StateHandling.GetAllQuestionResponseState
 import com.example.quizapp.StateHandling.LinuxResponseState
 import com.example.quizapp.StateHandling.ReactResponseState
-import com.example.quizapp.data.Models.QnaResponse
 import com.example.quizapp.data.RepositoryImpl.RepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
