@@ -61,7 +61,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(DOCKER)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Docker"),
            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
            shape = RectangleShape
        ) {
@@ -83,7 +83,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(LINUX)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Linux"),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF0DE43)),
            shape = RectangleShape
        ) {
@@ -94,7 +94,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(POSTGRESQL)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Postgres"),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF74C40)),
            shape = RectangleShape
        ) {
@@ -105,7 +105,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(ALLQUESTIONSCREEN)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Random Quiz"),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFCF62E2)),
            shape = RectangleShape
        ) {
