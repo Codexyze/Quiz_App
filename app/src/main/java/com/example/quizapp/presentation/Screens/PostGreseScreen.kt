@@ -22,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,13 +31,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.quizapp.presentation.Viewmodel.ViewModel
+import com.example.quizapp.presentation.Viewmodel.PostgresViewModel
 
 
 @Composable
-fun GetPostgreseQuestionScreen(viewModel: ViewModel = hiltViewModel()) {
+fun GetPostgreseQuestionScreen(viewModel: PostgresViewModel=hiltViewModel()) {
     val state = viewModel.getAllQuestionstate.collectAsState()
-    var score by remember { mutableStateOf(0) } // Score counter
+    var score by rememberSaveable { mutableStateOf(0) } // Score counter
 
     LaunchedEffect(Unit) {
         viewModel.getPostgreseQuestions()

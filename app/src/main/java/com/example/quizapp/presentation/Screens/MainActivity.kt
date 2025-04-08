@@ -1,4 +1,4 @@
-package com.example.quizapp
+package com.example.quizapp.presentation.Screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,10 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.quizapp.Navigation.MyApp
-import com.example.quizapp.presentation.Screens.GetDockerQuestionScreen
 import com.example.quizapp.ui.theme.QuizAppTheme
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -22,10 +20,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             QuizAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   Box(modifier = Modifier.padding(innerPadding)){
-                    MyApp()
-                   }
+                Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
+                    Box(modifier = Modifier.Companion.padding(innerPadding)) {
+                        MyApp()
+                    }
                 }
             }
         }
