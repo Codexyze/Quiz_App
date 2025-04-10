@@ -19,13 +19,13 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.quizapp.Navigation.ALLQUESTIONSCREEN
-import com.example.quizapp.Navigation.APACHE_KAFKA
-import com.example.quizapp.Navigation.BASH
-import com.example.quizapp.Navigation.DOCKER
-import com.example.quizapp.Navigation.LINUX
-import com.example.quizapp.Navigation.POSTGRESQL
-import com.example.quizapp.Navigation.REACT
+import com.example.quizapp.presentation.Navigation.ALLQUESTIONSCREEN
+import com.example.quizapp.presentation.Navigation.APACHE_KAFKA
+import com.example.quizapp.presentation.Navigation.BASH
+import com.example.quizapp.presentation.Navigation.DOCKER
+import com.example.quizapp.presentation.Navigation.LINUX
+import com.example.quizapp.presentation.Navigation.POSTGRESQL
+import com.example.quizapp.presentation.Navigation.REACT
 
 @Composable
 fun HomeScreen(navController: NavController) {

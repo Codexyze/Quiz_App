@@ -1,4 +1,4 @@
-package com.example.quizapp.Navigation
+package com.example.quizapp.presentation.Navigation
 
 import kotlinx.serialization.Serializable
 

@@ -4,7 +4,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import com.example.quizapp.Navigation.MyApp
+import com.example.quizapp.presentation.Navigation.MyApp
 import org.junit.Rule
 import org.junit.Test
 
