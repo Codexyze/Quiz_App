@@ -1,5 +1,6 @@
 package com.example.quizapp.di
 
+import androidx.annotation.Keep
 import com.example.quizapp.Domain.RepositoryInterface.Repository
 import com.example.quizapp.Domain.UseCases.GetAllQuestionsUseCase
 import com.example.quizapp.Domain.UseCases.GetApacheKafkaQuestionUseCase
@@ -15,6 +16,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
+@Keep
 @Module
 @InstallIn(SingletonComponent::class)
 object DiObject {

@@ -23,7 +23,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources=true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -64,6 +65,8 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:2.3.5") // For automatic JSON serialization
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5") // Kotlinx serialization support
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0") // JSON parser
+    implementation("org.slf4j:slf4j-simple:2.0.9") // or latest
+
     //navigation JETPACK COMPOSE
     val nav_version = "2.8.6"
     implementation("androidx.navigation:navigation-compose:$nav_version")

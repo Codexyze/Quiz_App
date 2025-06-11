@@ -1,5 +1,6 @@
 package com.example.quizapp.presentation.Viewmodel
 
+import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@Keep
 @HiltViewModel
 class ReactQuestionsViewModel @Inject constructor(private val useCaseAcess: UseCaseAccess) : ViewModel(){
     private val _getReactQuestionstate= MutableStateFlow(ReactResponseState())

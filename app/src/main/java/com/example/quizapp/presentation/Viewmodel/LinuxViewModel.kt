@@ -1,5 +1,6 @@
 package com.example.quizapp.presentation.Viewmodel
 
+import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+@Keep
 @HiltViewModel
 class LinuxViewModel @Inject constructor(private val usecaseAcess: UseCaseAccess):ViewModel (){
     private val _getLinuxResponseState= MutableStateFlow(LinuxResponseState())
