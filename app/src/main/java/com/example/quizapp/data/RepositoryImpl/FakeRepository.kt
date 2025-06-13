@@ -56,22 +56,17 @@ class FakeRepository: Repository {
 
     )
 
-    override suspend fun getPostgreseQuestions(): Flow<ApiResult<List<QnaResponse>>> {
-       return flow {
-           emit(ApiResult.Success(listOfQnaResponse))
-       }
+    override suspend fun getPostgreseQuestions(): Flow<ApiResult<List<QnaResponse>>> =flow{
+            emit(ApiResult.Success(listOfQnaResponse))
     }
 
-    override suspend fun getReactQuestions(): Flow<ApiResult<List<QnaResponse>>> {
-        return flow {
-            emit(ApiResult.Success(listOfQnaResponse))
-        }
+    override suspend fun getReactQuestions(): Flow<ApiResult<List<QnaResponse>>> =flow{
+         emit(ApiResult.Success(listOfQnaResponse))
+
     }
 
-    override suspend fun getApacheKafkaQuestions(): Flow<ApiResult<List<QnaResponse>>> {
-        return flow {
-            emit(ApiResult.Success(listOfQnaResponse))
-        }
+    override suspend fun getApacheKafkaQuestions(): Flow<ApiResult<List<QnaResponse>>> =flow{
+        emit(ApiResult.Success(listOfQnaResponse))
     }
 
     override suspend fun getBashQuestions(): Flow<ApiResult<List<QnaResponse>>> {
@@ -92,9 +87,7 @@ class FakeRepository: Repository {
         }
     }
 
-    override suspend fun getAllQuestions(): Flow<ApiResult<List<QnaResponse>>> {
-        return flow {
-            emit(ApiResult.Success(listOfQnaResponse))
-        }
+    override suspend fun getAllQuestions(): Flow<ApiResult<List<QnaResponse>>> =flow{
+        emit(ApiResult.Success(listOfQnaResponse))
     }
 }
