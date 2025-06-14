@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.quizapp.di.HiltTestRunner"
     }
 
     buildTypes {
@@ -77,4 +77,23 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     //Mock Test ktor
     testImplementation("io.ktor:ktor-client-mock:2.3.5")
+
+    androidTestImplementation("io.ktor:ktor-client-mock:2.3.5")
+
+
+    //hilt testing
+    // For Robolectric tests.
+    testImplementation("com.google.dagger:hilt-android-testing:2.56.2")
+    // ...with Kotlin.
+    kaptTest("com.google.dagger:hilt-android-compiler:2.56.2")
+    // ...with Java.
+    testAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.56.2")
+
+
+    // For instrumented tests.
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.56.2")
+    // ...with Kotlin.
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.56.2")
+    // ...with Java.
+    androidTestAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.56.2")
 }
