@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -70,7 +71,7 @@ fun GetDockerQuestionScreen(viewModel: DockerViewModel = hiltViewModel()) {
                 modifier = Modifier.fillMaxSize().testTag(TestTags.DOCKERSCROOL),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(state.value.data ?: emptyList()) { questionItem ->
+                itemsIndexed (state.value.data ?: emptyList()) { index,questionItem ->
                     var selectedAnswer by remember { mutableStateOf<String?>(null) }
                     var isCorrect by remember { mutableStateOf<Boolean?>(null) }
 
@@ -88,7 +89,8 @@ fun GetDockerQuestionScreen(viewModel: DockerViewModel = hiltViewModel()) {
                                 text = questionItem.question.toString(),
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = Color.Black
+                                color = Color.Black,
+                                modifier = if (index == 0) Modifier.testTag(TestTags.DOCKERFIRSTQUESTION)else Modifier
                             )
 
                             // Display options

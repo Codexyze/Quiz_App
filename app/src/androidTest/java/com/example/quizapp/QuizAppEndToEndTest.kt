@@ -4,13 +4,10 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.test.performScrollTo
 import com.example.quizapp.Constants.TestTags
 import com.example.quizapp.di.DiObject
-import com.example.quizapp.presentation.Navigation.MyApp
-import com.example.quizapp.presentation.Screens.HomeScreen
 import com.example.quizapp.presentation.Screens.MainActivity
-import com.example.quizapp.ui.theme.QuizAppTheme
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -32,8 +29,6 @@ class QuizAppEndToEndTest {
     @Before
     fun setUp(){
         hiltRule.inject()
-
-
     }
 
     @Test
@@ -52,7 +47,8 @@ class QuizAppEndToEndTest {
     fun clickOnDocker(){
         composeTestRule.onNodeWithTag("Docker").performClick()
         composeTestRule.onNodeWithTag(testTag = TestTags.DOCKERSCORE).assertExists()
-        composeTestRule.onNodeWithTag(testTag = TestTags.DOCKERSCROOL)
+       composeTestRule.onNodeWithTag(TestTags.DOCKERFIRSTQUESTION).performScrollTo().assertExists()
+
     }
 
 
