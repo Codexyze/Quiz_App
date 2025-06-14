@@ -75,4 +75,6 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     //Most Error making Library
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    //Mock Test ktor
+    testImplementation("io.ktor:ktor-client-mock:2.3.5")
 }
