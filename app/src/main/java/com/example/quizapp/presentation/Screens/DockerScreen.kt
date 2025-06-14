@@ -26,11 +26,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.quizapp.presentation.Viewmodel.DockerViewModel
+import com.example.quizapp.Constants.TestTags
+import com.example.quizapp.presentation.AllViewmodel.DockerViewModel
 
 @Composable
 fun GetDockerQuestionScreen(viewModel: DockerViewModel = hiltViewModel()) {
@@ -52,7 +54,7 @@ fun GetDockerQuestionScreen(viewModel: DockerViewModel = hiltViewModel()) {
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = Color(0xFF4CAF50),
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier.padding(bottom = 16.dp).testTag(TestTags.DOCKERSCORE)
         )
 
         if (state.value.isLoading) {
@@ -65,7 +67,7 @@ fun GetDockerQuestionScreen(viewModel: DockerViewModel = hiltViewModel()) {
             }
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().testTag(TestTags.DOCKERSCROOL),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(state.value.data ?: emptyList()) { questionItem ->

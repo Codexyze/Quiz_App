@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.quizapp.presentation.Viewmodel.ReactQuestionsViewModel
+import com.example.quizapp.presentation.AllViewmodel.ReactQuestionsViewModel
 
 //viewModel: ViewModel = hiltViewModel()
 @Composable

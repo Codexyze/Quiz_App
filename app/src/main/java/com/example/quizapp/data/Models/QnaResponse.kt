@@ -1,5 +1,5 @@
 package com.example.quizapp.data.Models
-import kotlinx.serialization.Contextual
+
 import kotlinx.serialization.Serializable
 
 @Serializable

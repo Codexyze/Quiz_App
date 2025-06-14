@@ -1,4 +1,4 @@
-package com.example.quizapp.presentation.Viewmodel
+package com.example.quizapp.presentation.AllViewmodel
 
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
