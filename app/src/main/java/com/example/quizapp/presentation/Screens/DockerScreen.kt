@@ -68,7 +68,7 @@ fun GetDockerQuestionScreen(viewModel: DockerViewModel = hiltViewModel()) {
             }
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize().testTag(TestTags.DOCKERSCROOL),
+                modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 itemsIndexed (state.value.data ?: emptyList()) { index,questionItem ->

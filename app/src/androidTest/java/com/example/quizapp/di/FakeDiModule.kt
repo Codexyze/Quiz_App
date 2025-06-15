@@ -15,8 +15,6 @@ import com.example.quizapp.data.RepositoryImpl.RepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
@@ -44,6 +42,10 @@ object FakeDiModule {
             val responseJson = when {
                 "category=${Constants.REACT}" in url -> TestJson.DOCKERJSON
                 "category=${Constants.DOCKER}" in url -> TestJson.DOCKERJSON
+                "category=${Constants.ApacheKafka}" in url-> TestJson.APACHE_KAFKAJSON
+                "category=${Constants.BASH}" in url-> TestJson.BASHJSON
+                "category=${Constants.LINUX}" in url-> TestJson.LINUXJSON
+                "category=${Constants.CATEGORY}" in url-> TestJson.POSTGRESQLJSON
                 else -> "[]" // Default empty response
             }
 

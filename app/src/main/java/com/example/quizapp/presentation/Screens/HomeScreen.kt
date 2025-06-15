@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.quizapp.Constants.TestTags
 import com.example.quizapp.presentation.Navigation.ALLQUESTIONSCREEN
 import com.example.quizapp.presentation.Navigation.APACHE_KAFKA
 import com.example.quizapp.presentation.Navigation.BASH
@@ -26,6 +27,7 @@ import com.example.quizapp.presentation.Navigation.DOCKER
 import com.example.quizapp.presentation.Navigation.LINUX
 import com.example.quizapp.presentation.Navigation.POSTGRESQL
 import com.example.quizapp.presentation.Navigation.REACT
+
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -35,7 +37,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(APACHE_KAFKA)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Apache Kafka"),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag(TestTags.APACHE_KAFKA),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)), // Green background
            shape = RectangleShape // Removes rounded corners
        ) {
@@ -47,7 +49,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(BASH)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Bash"),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag(TestTags.BASH),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1976D2)), // Custom color
            shape = RectangleShape
        ) {
@@ -58,7 +60,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(DOCKER)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Docker"),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag(TestTags.DOCKER),
            colors = ButtonDefaults.buttonColors(containerColor = Color.Blue),
            shape = RectangleShape
        ) {
@@ -69,7 +71,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(REACT)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("React"),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag(TestTags.REACT),
            colors = ButtonDefaults.buttonColors(containerColor = Color.Cyan),
            shape = RectangleShape
        ) {
@@ -80,7 +82,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(LINUX)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Linux"),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag(TestTags.LINUX),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF0DE43)),
            shape = RectangleShape
        ) {
@@ -91,7 +93,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(POSTGRESQL)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Postgres"),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag(TestTags.POSTGRESQL),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF74C40)),
            shape = RectangleShape
        ) {
@@ -102,7 +104,7 @@ fun HomeScreen(navController: NavController) {
            onClick = {
                navController.navigate(ALLQUESTIONSCREEN)
            },
-           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag("Random Quiz"),
+           modifier = Modifier.fillMaxWidth(0.9f).height(60.dp).testTag(TestTags.GETRANDOMQUIZ),
            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFCF62E2)),
            shape = RectangleShape
        ) {

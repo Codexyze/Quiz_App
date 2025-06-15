@@ -44,13 +44,48 @@ class QuizAppEndToEndTest {
     }
 
     @Test
-    fun clickOnDocker(){
-        composeTestRule.onNodeWithTag("Docker").performClick()
+    fun DockerCompleteTest(){
+        composeTestRule.onNodeWithTag(TestTags.DOCKER).performClick()
         composeTestRule.onNodeWithTag(testTag = TestTags.DOCKERSCORE).assertExists()
-       composeTestRule.onNodeWithTag(TestTags.DOCKERFIRSTQUESTION).performScrollTo().assertExists()
+        composeTestRule.onNodeWithTag(TestTags.DOCKERFIRSTQUESTION).performScrollTo().assertExists()
 
     }
 
+    @Test
+    fun ApacheKafkaScreentest(){
+        composeTestRule.onNodeWithTag(TestTags.APACHE_KAFKA).performClick()
+        composeTestRule.onNodeWithTag(testTag = TestTags.APACHE_KAFKA_SCORE).assertExists()
+        composeTestRule.onNodeWithTag(TestTags.APACHE_KAFKA_SCROLL).performScrollTo().assertExists()
+
+    }
+
+    @Test
+    fun BashScreenTest(){
+        composeTestRule.onNodeWithTag(TestTags.BASH).performClick()
+        composeTestRule.onNodeWithTag(testTag = TestTags.BASH_SCORE).assertExists()
+        composeTestRule.onNodeWithTag(TestTags.BASH_SCROLL).performScrollTo().assertExists()
+    }
+
+    @Test
+    fun PostgresScreenTest() {
+        composeTestRule.onNodeWithTag(TestTags.POSTGRESQL).performClick()
+        composeTestRule.onNodeWithTag(testTag = TestTags.POSTGRESQL_SCORE).assertExists()
+        composeTestRule.onNodeWithTag(TestTags.POSTGRESQL_SCROLL).performScrollTo().assertExists()
+    }
+
+    @Test
+    fun LinuxScreenTest() {
+        composeTestRule.onNodeWithTag(TestTags.LINUX).performClick()
+        composeTestRule.onNodeWithTag(testTag = TestTags.LINUX_SCORE).assertExists()
+        composeTestRule.onNodeWithTag(TestTags.LINUX_SCROLL).performScrollTo().assertExists()
+    }
+
+    @Test
+    fun ReactScreenTest() {
+        composeTestRule.onNodeWithTag(TestTags.REACT).performClick()
+        composeTestRule.onNodeWithTag(testTag = TestTags.REACT_SCORE).assertExists()
+        composeTestRule.onNodeWithTag(TestTags.REACT_SCROLL).performScrollTo().assertExists()
+    }
 
 
 
