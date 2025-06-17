@@ -8,6 +8,12 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2024.04.01"
+nav_version = "2.8.6"
+hilt-version ="2.51.1"
+hilt-navigation-compose-version ="1.2.0"
+ktor-version = "2.3.5"
+json="1.5.0"
+logger ="2.0.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,9 +30,31 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+#Navigation
+androidx-navigation={ group= "androidx.navigation", name ="navigation-compose" , version.ref="nav_version"}
+#Hilt
+dagger-hilt = {module ="com.google.dagger:hilt-android",version.ref="hilt-version"}
+dagger-hilt-compiler = {group = "com.google.dagger", name = "hilt-android-compiler" ,version.ref ="hilt-version"}
+#Hilt Navigation
+dagger-hilt-navigation = {group ="androidx.hilt" , name ="hilt-navigation-compose",version.ref="hilt-navigation-compose-version" }
+#Ktor-Client-Mock
+ktor-client-mock ={module= "io.ktor:ktor-client-mock",version.ref="ktor-version"}
+#Core Ktor client
+ktor-client-core ={group = "io.ktor",name = "ktor-client-core", version.ref ="ktor-version"}
+#For making network requests
+ktor-client-client ={group="io.ktor",name="ktor-client-cio",version.ref="ktor-version"}
+#For automatic JSON serialization
+ktor-client-content ={group ="io.ktor",name="ktor-client-content-negotiation",version.ref="ktor-version"}
+#Kotlinx serialization support
+ktor-client-seralization= {group="io.ktor",name ="ktor-serialization-kotlinx-json",version.ref = "ktor-version"}
+#// JSON parser
+ktor-client-json ={group ="org.jetbrains.kotlinx",name="kotlinx-serialization-json",version.ref = "json" }
+#Logger
+logger={module ="org.slf4j:slf4j-simple",version.ref="logger"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
 

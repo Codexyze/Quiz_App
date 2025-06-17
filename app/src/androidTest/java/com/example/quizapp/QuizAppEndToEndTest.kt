@@ -5,6 +5,7 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.navigation.compose.rememberNavController
 import com.example.quizapp.Constants.TestTags
 import com.example.quizapp.di.DiObject
 import com.example.quizapp.presentation.Screens.MainActivity
@@ -29,6 +30,7 @@ class QuizAppEndToEndTest {
     @Before
     fun setUp(){
         hiltRule.inject()
+
     }
 
     @Test
@@ -85,6 +87,7 @@ class QuizAppEndToEndTest {
         composeTestRule.onNodeWithTag(TestTags.REACT).performClick()
         composeTestRule.onNodeWithTag(testTag = TestTags.REACT_SCORE).assertExists()
         composeTestRule.onNodeWithTag(TestTags.REACT_SCROLL).performScrollTo().assertExists()
+        
     }
 
 
