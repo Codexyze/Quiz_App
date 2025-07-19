@@ -7,10 +7,12 @@ import com.example.quizapp.Domain.UseCases.UseCaseAccess
 import com.example.quizapp.StateHandling.ApiResult
 import com.example.quizapp.StateHandling.DockerResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @Keep
@@ -21,20 +23,24 @@ class DockerViewModel @Inject constructor(private val useCaseAccess: UseCaseAcce
 
 
     fun getDockerQuestions() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             useCaseAccess.getDockerQuestionUseCase.getDockerQuestionsUseCase().collectLatest { ApiResult ->
-                when (ApiResult) {
-                    is ApiResult.Loading -> {
-                        _getDockerQuestionState.value = DockerResponseState(isLoading = true)
-                    }
+                withContext(Dispatchers.Main) {
+                    when (ApiResult) {
+                        is ApiResult.Loading -> {
+                            _getDockerQuestionState.value = DockerResponseState(isLoading = true)
+                        }
 
-                    is ApiResult.Success -> {
-                        _getDockerQuestionState.value =
-                            DockerResponseState(isLoading = false, data = ApiResult.data)
-                    }                    is ApiResult.Error -> {
-                    _getDockerQuestionState.value =
-                        DockerResponseState(isLoading = false, error = ApiResult.message)
-                }
+                        is ApiResult.Success -> {
+                            _getDockerQuestionState.value =
+                                DockerResponseState(isLoading = false, data = ApiResult.data)
+                        }
+
+                        is ApiResult.Error -> {
+                            _getDockerQuestionState.value =
+                                DockerResponseState(isLoading = false, error = ApiResult.message)
+                        }
+                    }
                 }
             }
         }

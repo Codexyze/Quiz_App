@@ -7,10 +7,12 @@ import com.example.quizapp.Domain.UseCases.UseCaseAccess
 import com.example.quizapp.StateHandling.ApacheKafkaResponseState
 import com.example.quizapp.StateHandling.ApiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @Keep
@@ -20,17 +22,27 @@ class ApacheKafkaViewModel @Inject constructor(private val usecaseAcess: UseCase
     val getApacheKafkaQuestionstate =_getApacheKafkaQuestionstate.asStateFlow()
 
     fun getApacheKafkaQuestions(){
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+
             usecaseAcess.getApacheKafkaQuestionUseCase.getApacheKafkaQuestionsUseCase().collectLatest {ApiResult->
-                when(ApiResult){
-                    is ApiResult.Loading->{
-                        _getApacheKafkaQuestionstate.value=ApacheKafkaResponseState(isLoading = true)
-                    }
-                    is ApiResult.Success->{
-                        _getApacheKafkaQuestionstate.value=ApacheKafkaResponseState(isLoading = false, data = ApiResult.data)
-                    }
-                    is ApiResult.Error->{
-                        _getApacheKafkaQuestionstate.value=ApacheKafkaResponseState(isLoading = false, error = ApiResult.message)
+                withContext(Dispatchers.Main) {
+                    when (ApiResult) {
+                        is ApiResult.Loading -> {
+                            _getApacheKafkaQuestionstate.value =
+                                ApacheKafkaResponseState(isLoading = true)
+                        }
+
+                        is ApiResult.Success -> {
+                            _getApacheKafkaQuestionstate.value =
+                                ApacheKafkaResponseState(isLoading = false, data = ApiResult.data)
+                        }
+
+                        is ApiResult.Error -> {
+                            _getApacheKafkaQuestionstate.value = ApacheKafkaResponseState(
+                                isLoading = false,
+                                error = ApiResult.message
+                            )
+                        }
                     }
                 }
 
