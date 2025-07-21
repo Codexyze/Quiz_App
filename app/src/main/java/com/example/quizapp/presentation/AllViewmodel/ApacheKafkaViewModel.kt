@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
 import com.example.quizapp.StateHandling.ApacheKafkaResponseState
 import com.example.quizapp.StateHandling.ApiResult
+import com.example.quizapp.presentation.UiIntent.UiIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,25 +22,35 @@ class ApacheKafkaViewModel @Inject constructor(private val usecaseAcess: UseCase
     private val _getApacheKafkaQuestionstate= MutableStateFlow(ApacheKafkaResponseState())
     val getApacheKafkaQuestionstate =_getApacheKafkaQuestionstate.asStateFlow()
 
+    fun onIntent(intent : UiIntent){
+        when(intent){
+             UiIntent.APACHEKAFKABUTTONCLICK->{
+                 getApacheKafkaQuestions()
+            }
+        }
+    }
+
     fun getApacheKafkaQuestions(){
         viewModelScope.launch(Dispatchers.IO) {
 
             usecaseAcess.getApacheKafkaQuestionUseCase.getApacheKafkaQuestionsUseCase().collectLatest {ApiResult->
                 withContext(Dispatchers.Main) {
                     when (ApiResult) {
+
                         is ApiResult.Loading -> {
                             _getApacheKafkaQuestionstate.value =
-                                ApacheKafkaResponseState(isLoading = true)
+                                ApacheKafkaResponseState(isLoading = true, idelState = false)
                         }
 
                         is ApiResult.Success -> {
                             _getApacheKafkaQuestionstate.value =
-                                ApacheKafkaResponseState(isLoading = false, data = ApiResult.data)
+                                ApacheKafkaResponseState(isLoading = false, data = ApiResult.data, idelState = false)
                         }
 
                         is ApiResult.Error -> {
                             _getApacheKafkaQuestionstate.value = ApacheKafkaResponseState(
                                 isLoading = false,
+                                idelState = false,
                                 error = ApiResult.message
                             )
                         }

@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizapp.Constants.TestTags
 import com.example.quizapp.presentation.AllViewmodel.ApacheKafkaViewModel
+import com.example.quizapp.presentation.UiIntent.UiIntent
 
 
 @Composable
@@ -42,9 +43,14 @@ fun GetApacheKafkaQuestionScreen(viewModel: ApacheKafkaViewModel = hiltViewModel
     val state = viewModel.getApacheKafkaQuestionstate.collectAsState()
     var score by rememberSaveable { mutableStateOf(0) } // Score counter
 
-    LaunchedEffect(Unit) {
-        viewModel.getApacheKafkaQuestions()
+    val once = rememberSaveable { mutableStateOf(true) }
+    if (once.value) {
+        LaunchedEffect(Unit) {
+            viewModel.onIntent(UiIntent.APACHEKAFKABUTTONCLICK)
+            once.value = false
+        }
     }
+
 
     Column(
         modifier = Modifier
