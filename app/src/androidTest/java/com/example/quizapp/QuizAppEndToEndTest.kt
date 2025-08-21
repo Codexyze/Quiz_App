@@ -1,6 +1,7 @@
 package com.example.quizapp
 
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
@@ -90,6 +91,28 @@ class QuizAppEndToEndTest {
         
     }
 
-
+    @Test
+    fun DockerQuizWorkflowTest() {
+        composeTestRule.onNodeWithTag(TestTags.DOCKER).performClick()
+        composeTestRule.onNodeWithTag(TestTags.DOCKERSCORE).assertExists()
+        // Loop over first 3 Docker quiz questions and select Option A, then check feedback
+        repeat(3) { i ->
+            // Scroll to the question node tagged for question one (only first question is tagged, so select by text instead)
+            val questionTag = if (i == 0) TestTags.DOCKERFIRSTQUESTION else null
+            if (questionTag != null) {
+                composeTestRule.onNodeWithTag(questionTag).performScrollTo()
+            }
+            // Select Option A by text contains
+            composeTestRule.onAllNodes(
+                hasText("Option A:", substring = true)
+            )[i].performClick()
+            // Check feedback (correct/wrong)
+            composeTestRule.onAllNodes(
+                hasText("Correct Answer!").or(hasText("Wrong Answer!"))
+            )[i].assertExists()
+        }
+        // After answering, check the score increments (max 3 after 3 correct answers, but could be less)
+        composeTestRule.onNodeWithTag(TestTags.DOCKERSCORE).assertExists()
+    }
 
 }

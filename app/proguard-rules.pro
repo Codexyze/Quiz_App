@@ -122,3 +122,9 @@
 
 # Uncomment this if you want to keep original names (helpful in dev)
 # -dontobfuscate
+
+
+# Don't warn about missing compile-only classes
+-dontwarn com.google.auto.value.**
+-dontwarn javax.lang.model.element.**
+-dontwarn com.google.errorprone.annotations.**

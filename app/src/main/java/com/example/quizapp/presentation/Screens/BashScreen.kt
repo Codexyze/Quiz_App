@@ -34,16 +34,21 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizapp.Constants.TestTags
 import com.example.quizapp.presentation.AllViewmodel.BashViewModel
-
+import com.example.quizapp.presentation.UiIntent.UiIntent
 
 
 @Composable
 fun GetBashQuestionScreen(viewModel: BashViewModel = hiltViewModel()) {
     val state = viewModel.bashResponseState.collectAsState()
     var score by rememberSaveable { mutableStateOf(0) } // Score counter
+    var once by rememberSaveable { mutableStateOf(true) }
 
-    LaunchedEffect(Unit) {
-        viewModel.getBashQuestions()
+    if(once){
+        LaunchedEffect(Unit) {
+            viewModel.onIntent(intent = UiIntent.BASHBUTTONCLICK)
+            once = false
+        }
+
     }
 
     Column(

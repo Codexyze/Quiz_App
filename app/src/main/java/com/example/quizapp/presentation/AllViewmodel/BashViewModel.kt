@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
 import com.example.quizapp.StateHandling.ApiResult
 import com.example.quizapp.StateHandling.BashResponseState
+import com.example.quizapp.presentation.UiIntent.UiIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +21,17 @@ import javax.inject.Inject
 class BashViewModel @Inject constructor(private val usecaseAcess: UseCaseAccess):ViewModel (){
     private val  _bashResponseState = MutableStateFlow(BashResponseState())
     val bashResponseState=_bashResponseState.asStateFlow()
+    fun onIntent(intent: UiIntent){
+        when(intent){
+            UiIntent.BASHBUTTONCLICK->{
+                getBashQuestions()
+            }
+            else->{
+
+            }
+        }
+
+    }
     fun getBashQuestions() {
         viewModelScope.launch(Dispatchers.IO) {
             usecaseAcess.getBashQuestionsUseCase.getBashQuestionsUseCase().collectLatest { ApiResult ->

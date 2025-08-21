@@ -26,6 +26,8 @@ class ApacheKafkaViewModel @Inject constructor(private val usecaseAcess: UseCase
         when(intent){
              UiIntent.APACHEKAFKABUTTONCLICK->{
                  getApacheKafkaQuestions()
+            }else->{
+
             }
         }
     }
