@@ -33,12 +33,9 @@ data class LinuxResponseState(
     val data: List<QnaResponse> = emptyList(),
     val error: String = "")
 
-data class DockerResponseState(
-    val isLoading: Boolean = false,
-    val data: List<QnaResponse> = emptyList(),
-    val error: String = "")
 
-data class GetAllQuestionResponseState(
-    val isLoading: Boolean = false,
-    val data: List<QnaResponse> = emptyList(),
-    val error: String = "")
+
+//data class GetAllQuestionResponseState(
+//    val isLoading: Boolean = false,
+//    val data: List<QnaResponse> = emptyList(),
+//    val error: String = "")

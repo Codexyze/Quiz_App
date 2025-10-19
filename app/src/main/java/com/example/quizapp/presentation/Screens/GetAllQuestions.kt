@@ -33,12 +33,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.quizapp.Constants.TestTags
+import com.example.quizapp.StateHandling.getAllQuestionState.GetAllQuestionState
 import com.example.quizapp.presentation.AllViewmodel.GetAllQuestionViewModel
 
 
 @Composable
 fun GetAllQuestionScreen(viewModel: GetAllQuestionViewModel = hiltViewModel()) {
-    val state = viewModel.getAllQuestionState.collectAsState()
+    val state by viewModel.getAllQuestionState.collectAsState()
     var score by rememberSaveable { mutableStateOf(0) } // Score counter
 
     LaunchedEffect(Unit) {
@@ -59,97 +60,100 @@ fun GetAllQuestionScreen(viewModel: GetAllQuestionViewModel = hiltViewModel()) {
             modifier = Modifier.padding(bottom = 16.dp)
                 .testTag(TestTags.GETRANDOMQUIZ_SCORE)
         )
-
-        if (state.value.isLoading) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
+        when(state){
+            is GetAllQuestionState.Idle -> {
+                // Idle state UI (if needed)
             }
-        } else if (state.value.error.isNotEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text("Error loading data", color = Color.Red, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            is GetAllQuestionState.Loading -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
             }
-        } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                itemsIndexed (state.value.data ?: emptyList()) {index, questionItem ->
-                    var selectedAnswer by remember { mutableStateOf<String?>(null) }
-                    var isCorrect by remember { mutableStateOf<Boolean?>(null) }
+            is GetAllQuestionState.Error -> {
+                val errorMessage = (state as GetAllQuestionState.Error).error
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("Error: $errorMessage", color = Color.Red, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                }
+            }
+            is GetAllQuestionState.Success -> {
+                val questions = (state as GetAllQuestionState.Success).data
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    itemsIndexed(questions) { index, questionItem ->
+                        var selectedAnswer by remember { mutableStateOf<String?>(null) }
+                        var isCorrect by remember { mutableStateOf<Boolean?>(null) }
 
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        elevation = CardDefaults.cardElevation(6.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = CardDefaults.cardColors(containerColor = Color.White)
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            elevation = CardDefaults.cardElevation(6.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = CardDefaults.cardColors(containerColor = Color.White)
                         ) {
-                            Text(
-                                text = questionItem.question.toString(),
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.Black,
-                                modifier = if (index == 0) Modifier.testTag(TestTags.GETRANDOMQUIZ_SCROLL)else Modifier
-                            )
+                            Column(
+                                modifier = Modifier.padding(16.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Text(
+                                    text = questionItem.question.toString(),
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Black,
+                                    modifier = if (index == 0) Modifier.testTag(TestTags.GETRANDOMQUIZ_SCROLL) else Modifier
+                                )
 
-                            // Display options
-                            listOf(
-                                "A" to questionItem.answers?.answer_a,
-                                "B" to questionItem.answers?.answer_b,
-                                "C" to questionItem.answers?.answer_c,
-                                "D" to questionItem.answers?.answer_d
-                            ).forEach { (option, answer) ->
-                                answer?.let {
-                                    Button(
-                                        onClick = {
-                                            if (selectedAnswer == null) { // Prevent multiple selections
-                                                selectedAnswer = option
-                                                val correct = when (option) {
-                                                    "A" -> questionItem.correct_answers?.answer_a_correct.toBoolean()
-                                                    "B" -> questionItem.correct_answers?.answer_b_correct.toBoolean()
-                                                    "C" -> questionItem.correct_answers?.answer_c_correct.toBoolean()
-                                                    "D" -> questionItem.correct_answers?.answer_d_correct.toBoolean()
-                                                    else -> false
+                                // Display options
+                                listOf(
+                                    "A" to questionItem.answers?.answer_a,
+                                    "B" to questionItem.answers?.answer_b,
+                                    "C" to questionItem.answers?.answer_c,
+                                    "D" to questionItem.answers?.answer_d
+                                ).forEach { (option, answer) ->
+                                    answer?.let {
+                                        Button(
+                                            onClick = {
+                                                if (selectedAnswer == null) { // Prevent multiple selections
+                                                    selectedAnswer = option
+                                                    val correct = when (option) {
+                                                        "A" -> questionItem.correct_answers?.answer_a_correct.toBoolean()
+                                                        "B" -> questionItem.correct_answers?.answer_b_correct.toBoolean()
+                                                        "C" -> questionItem.correct_answers?.answer_c_correct.toBoolean()
+                                                        "D" -> questionItem.correct_answers?.answer_d_correct.toBoolean()
+                                                        else -> false
+                                                    }
+                                                    isCorrect = correct
+                                                    if (correct) {
+                                                        score += 1 // Increase score if correct
+                                                    }
                                                 }
-                                                isCorrect = correct
-                                                if (correct) {
-                                                    score += 1 // Increase score if correct
-                                                }
-                                            }
-                                        },
-                                        colors = ButtonDefaults.buttonColors(
-                                            containerColor = if (selectedAnswer == option) {
-                                                if (isCorrect == true) Color(0xFF4CAF50) else Color(0xFFF44336)
-                                            } else Color(0xFF1976D2)
-                                        ),
-                                        modifier = Modifier.fillMaxWidth(),
-                                        shape = RoundedCornerShape(8.dp)
-                                    ) {
-                                        Text(
-                                            text = "Option $option: $answer",
-                                            color = Color.White,
-                                            fontSize = 16.sp
-                                        )
+                                            },
+                                            colors = ButtonDefaults.buttonColors(
+                                                containerColor = if (selectedAnswer == option) {
+                                                    if (isCorrect == true) Color(0xFF4CAF50) else Color(
+                                                        0xFFF44336
+                                                    )
+                                                } else Color(0xFF1976D2)
+                                            ),
+                                            modifier = Modifier.fillMaxWidth(),
+                                            shape = RoundedCornerShape(8.dp)
+                                        ) {
+                                            Text(
+                                                text = "Option $option: $answer",
+                                                color = Color.White,
+                                                fontSize = 16.sp
+                                            )
+                                        }
                                     }
                                 }
-                            }
-
-                            // Show result text
-                            isCorrect?.let {
-                                Text(
-                                    text = if (it) "Correct Answer!" else "Wrong Answer!",
-                                    color = if (it) Color(0xFF4CAF50) else Color(0xFFF44336),
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
                             }
                         }
                     }
                 }
             }
+
         }
+
+
     }
 }

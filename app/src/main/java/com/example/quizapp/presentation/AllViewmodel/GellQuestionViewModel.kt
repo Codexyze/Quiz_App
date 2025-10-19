@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
 import com.example.quizapp.StateHandling.ApiResult
-import com.example.quizapp.StateHandling.GetAllQuestionResponseState
+import com.example.quizapp.StateHandling.getAllQuestionState.GetAllQuestionState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @Keep
 @HiltViewModel
 class GetAllQuestionViewModel @Inject constructor(private val useCaseAccess: UseCaseAccess) : ViewModel(){
-    private val _getAllQuestionState = MutableStateFlow(GetAllQuestionResponseState())
+    private val _getAllQuestionState = MutableStateFlow<GetAllQuestionState>(GetAllQuestionState.Idle)
     val getAllQuestionState=_getAllQuestionState.asStateFlow()
 
     fun getAllQuestions() {
@@ -28,21 +28,19 @@ class GetAllQuestionViewModel @Inject constructor(private val useCaseAccess: Use
                     when (ApiResult) {
                         is ApiResult.Loading -> {
                             _getAllQuestionState.value =
-                                GetAllQuestionResponseState(isLoading = true)
+                                GetAllQuestionState.Loading
                         }
 
                         is ApiResult.Success -> {
                             _getAllQuestionState.value =
-                                GetAllQuestionResponseState(
-                                    isLoading = false,
+                                GetAllQuestionState.Success(
                                     data = ApiResult.data
                                 )
                         }
 
                         is ApiResult.Error -> {
                             _getAllQuestionState.value =
-                                GetAllQuestionResponseState(
-                                    isLoading = false,
+                                GetAllQuestionState.Error(
                                     error = ApiResult.message
                                 )
                         }
