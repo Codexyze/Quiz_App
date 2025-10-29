@@ -1,6 +1,5 @@
 package com.example.quizapp.Domain.RepositoryInterface
 
-import com.example.quizapp.StateHandling.ApiResult
 import com.example.quizapp.data.Models.QnaResponse
 import kotlinx.coroutines.flow.Flow
 
@@ -13,4 +12,10 @@ interface Repository {
     suspend fun getDockerQuestions(): Flow<ApiResult<List<QnaResponse>>>
     suspend fun getAllQuestions(): Flow<ApiResult<List<QnaResponse>>>
 
+}
+
+sealed class ApiResult<out T>{
+    object Loading: ApiResult<Nothing>()
+    data class Success<T>(val data: T): ApiResult<T>()
+    data class Error(val message: String): ApiResult<Nothing>()
 }

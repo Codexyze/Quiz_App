@@ -3,8 +3,8 @@ package com.example.quizapp.presentation.AllViewmodel
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.quizapp.Domain.RepositoryInterface.ApiResult
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
-import com.example.quizapp.StateHandling.ApiResult
 import com.example.quizapp.StateHandling.getAllQuestionState.GetAllQuestionState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

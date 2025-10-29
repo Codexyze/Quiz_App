@@ -3,9 +3,9 @@ package com.example.quizapp.presentation.AllViewmodel
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.quizapp.Domain.RepositoryInterface.ApiResult
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
-import com.example.quizapp.StateHandling.ApiResult
-import com.example.quizapp.StateHandling.BashResponseState
+import com.example.quizapp.StateHandling.bashResponseState.BashResponseState
 import com.example.quizapp.presentation.UiIntent.UiIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @Keep
 @HiltViewModel
 class BashViewModel @Inject constructor(private val usecaseAcess: UseCaseAccess):ViewModel (){
-    private val  _bashResponseState = MutableStateFlow(BashResponseState())
+    private val  _bashResponseState = MutableStateFlow<BashResponseState>(BashResponseState.Idle)
     val bashResponseState=_bashResponseState.asStateFlow()
     fun onIntent(intent: UiIntent){
         when(intent){
@@ -38,17 +38,17 @@ class BashViewModel @Inject constructor(private val usecaseAcess: UseCaseAccess)
                 withContext(Dispatchers.Main) {
                     when (ApiResult) {
                         is ApiResult.Loading -> {
-                            _bashResponseState.value = BashResponseState(isLoading = true)
+                            _bashResponseState.value = BashResponseState.Loading
                         }
 
                         is ApiResult.Success -> {
                             _bashResponseState.value =
-                                BashResponseState(isLoading = false, data = ApiResult.data)
+                                BashResponseState.Success(data = ApiResult.data)
                         }
 
                         is ApiResult.Error -> {
                             _bashResponseState.value =
-                                BashResponseState(isLoading = false, error = ApiResult.message)
+                                BashResponseState.Error(error = ApiResult.message)
                         }
                     }
                 }

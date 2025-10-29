@@ -3,9 +3,9 @@ package com.example.quizapp.presentation.AllViewmodel
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.quizapp.Domain.RepositoryInterface.ApiResult
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
-import com.example.quizapp.StateHandling.ApacheKafkaResponseState
-import com.example.quizapp.StateHandling.ApiResult
+import com.example.quizapp.StateHandling.apacheKafkaResponseState.ApacheKafkaResponseState
 import com.example.quizapp.presentation.UiIntent.UiIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @Keep
 @HiltViewModel
 class ApacheKafkaViewModel @Inject constructor(private val usecaseAcess: UseCaseAccess):ViewModel (){
-    private val _getApacheKafkaQuestionstate= MutableStateFlow(ApacheKafkaResponseState())
+    private val _getApacheKafkaQuestionstate= MutableStateFlow<ApacheKafkaResponseState>(ApacheKafkaResponseState.Idle)
     val getApacheKafkaQuestionstate =_getApacheKafkaQuestionstate.asStateFlow()
 
     fun onIntent(intent : UiIntent){
@@ -41,18 +41,16 @@ class ApacheKafkaViewModel @Inject constructor(private val usecaseAcess: UseCase
 
                         is ApiResult.Loading -> {
                             _getApacheKafkaQuestionstate.value =
-                                ApacheKafkaResponseState(isLoading = true, idelState = false)
+                                ApacheKafkaResponseState.Loading
                         }
 
                         is ApiResult.Success -> {
                             _getApacheKafkaQuestionstate.value =
-                                ApacheKafkaResponseState(isLoading = false, data = ApiResult.data, idelState = false)
+                                ApacheKafkaResponseState.Success(data = ApiResult.data)
                         }
 
                         is ApiResult.Error -> {
-                            _getApacheKafkaQuestionstate.value = ApacheKafkaResponseState(
-                                isLoading = false,
-                                idelState = false,
+                            _getApacheKafkaQuestionstate.value = ApacheKafkaResponseState.Error(
                                 error = ApiResult.message
                             )
                         }

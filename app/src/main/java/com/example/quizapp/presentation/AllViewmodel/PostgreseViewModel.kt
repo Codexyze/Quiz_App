@@ -3,9 +3,9 @@ package com.example.quizapp.presentation.AllViewmodel
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.quizapp.Domain.RepositoryInterface.ApiResult
 import com.example.quizapp.Domain.UseCases.UseCaseAccess
-import com.example.quizapp.StateHandling.ApiResponseState
-import com.example.quizapp.StateHandling.ApiResult
+import com.example.quizapp.StateHandling.apiResponseState.ApiResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ import javax.inject.Inject
 @Keep
 @HiltViewModel
 class PostgresViewModel @Inject constructor(private val usecaseAcess: UseCaseAccess): ViewModel(){
-    private val _getAllQuestionstate= MutableStateFlow(ApiResponseState())
+    private val _getAllQuestionstate= MutableStateFlow<ApiResponseState>(ApiResponseState.Idle)
     val getAllQuestionstate =_getAllQuestionstate.asStateFlow()
 
 
@@ -28,17 +28,17 @@ class PostgresViewModel @Inject constructor(private val usecaseAcess: UseCaseAcc
                 withContext(Dispatchers.Main) {
                     when (ApiResult) {
                         is ApiResult.Loading -> {
-                            _getAllQuestionstate.value = ApiResponseState(isLoading = true)
+                            _getAllQuestionstate.value = ApiResponseState.Loading
                         }
 
                         is ApiResult.Success -> {
                             _getAllQuestionstate.value =
-                                ApiResponseState(isLoading = false, data = ApiResult.data)
+                                ApiResponseState.Success(data = ApiResult.data)
                         }
 
                         is ApiResult.Error -> {
                             _getAllQuestionstate.value =
-                                ApiResponseState(isLoading = false, error = ApiResult.message)
+                                ApiResponseState.Error(error = ApiResult.message)
                         }
                     }
                 }

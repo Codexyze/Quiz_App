@@ -1,7 +1,7 @@
 package com.example.quizapp.data.RepositoryImpl
 
+import com.example.quizapp.Domain.RepositoryInterface.ApiResult
 import com.example.quizapp.Domain.RepositoryInterface.Repository
-import com.example.quizapp.StateHandling.ApiResult
 import com.example.quizapp.data.Models.Answers
 import com.example.quizapp.data.Models.CorrectAnswers
 import com.example.quizapp.data.Models.QnaResponse

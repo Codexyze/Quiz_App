@@ -6,6 +6,7 @@ plugins {
 
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 android {
@@ -121,4 +122,25 @@ dependencies {
     // ...with Java.
     androidTestAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.51.1")
 
+}
+
+// Dokka configuration
+tasks.dokkaHtml.configure {
+    outputDirectory.set(layout.buildDirectory.dir("dokka/html"))
+
+    dokkaSourceSets {
+        named("main") {
+            displayName.set("Quiz App Repository Implementation")
+            documentedVisibilities.set(setOf(
+                org.jetbrains.dokka.DokkaConfiguration.Visibility.PUBLIC,
+                org.jetbrains.dokka.DokkaConfiguration.Visibility.PROTECTED
+            ))
+
+            // Include source code links
+            sourceLink {
+                localDirectory.set(file("src/main/java"))
+                remoteLineSuffix.set("#L")
+            }
+        }
+    }
 }
